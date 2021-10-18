@@ -1,0 +1,1 @@
+Purpose of this repository is to track progress of the project on making a video player, a take home assignment, part of the recruitment process for JW Player.
