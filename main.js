@@ -26,6 +26,10 @@ class MyPlayer {
         return console.log("no video to pause");
     }
     };
+    resize(width, height) {
+        this.playerElement.setAttribute("width", width);
+        this.playerElement.setAttribute("height", height);
+    };
 }
 
 
@@ -38,7 +42,15 @@ window.addEventListener('DOMContentLoaded', (event) => {
     document.getElementById('pause-button').addEventListener('click', (event) => {
         player.pause();
     })
+    document.getElementById("resize-button").addEventListener("click", (event) => {
+        let newWidth = document.getElementById("width-input").value;
+        let newHeight = document.getElementById("height-input").value;
+        player.resize(newWidth, newHeight);
 });
+});
+
+
+
 
 
 
