@@ -49,13 +49,17 @@ class MyPlayer {
         console.log("after" + this.playerElement.volume);
     }
     getVolume() {
-        console.log(this.playerElement.volume)
+        console.log(this.playerElement.volume);
         return this.playerElement.volume * 100;
     }
     toggleMute(mute) {
         mute = this.playerElement.muted ? false : true;
         console.log(mute);
         return this.playerElement.muted = mute;
+    }
+    getMute() {
+        console.log(this.playerElement.muted);
+        return this.playerElement.muted;
     }
 }
 
@@ -87,6 +91,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
     });
     document.getElementById("mute-toggle").addEventListener("click", (event) => {
         player.toggleMute();
+        document.getElementById("mute-state").innerHTML = player.getMute();
     });
 });
 
