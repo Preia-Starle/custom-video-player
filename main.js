@@ -44,6 +44,10 @@ class MyPlayer {
         this.playerElement.load();
         return this.playerElement.autoplay = autoplay;
     }
+    setVolume(volume) {
+        this.playerElement.volume = volume / 100;
+        console.log("after" + this.playerElement.volume);
+    }
 }
 
 
@@ -67,6 +71,9 @@ window.addEventListener('DOMContentLoaded', (event) => {
     });
     document.getElementById("autoplay-toggle").addEventListener("click", (event) => {
         player.toggleAutoplay();
+    });
+    document.getElementById("volume-slider").addEventListener("change", (event) => {
+        player.setVolume(document.getElementById("volume-slider").value);
     });
 });
 
