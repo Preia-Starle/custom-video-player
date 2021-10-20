@@ -31,19 +31,30 @@ class MyPlayer {
         this.playerElement.setAttribute("height", height);
     };
     getHeight() {
-        console.log(this.height);
-        return this.height;
+        console.log(this.playerElement.height);
+        return this.playerElement.height;
     };
     getWidth() {
-        console.log(this.width);
-        return this.width;
+        console.log(this.playerElement.width);
+        return this.playerElement.width;
     };
+    setAutoplay() {
+        if(this.playerElement.autoplay) {
+            return;
+        }
+        else {
+            this.playerElement.play();
+        }
+    }
 }
 
 
 window.addEventListener('DOMContentLoaded', (event) => {
     const player = new MyPlayer(document.getElementById("player"), 600, 400);
     player.load("https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4");
+    let videoInfoTable = document.getElementById("height-width-info");
+    videoInfoTable.innerHTML = `<tr><td>Width:</td><td> ${player.getWidth()} px </td></tr>
+                                <tr><td>Height:</td><td> ${player.getHeight()} px </td></tr>`
     document.getElementById("play-button").addEventListener("click", (event) => {
         player.play();
     });
@@ -54,16 +65,10 @@ window.addEventListener('DOMContentLoaded', (event) => {
         let newWidth = document.getElementById("width-input").value;
         let newHeight = document.getElementById("height-input").value;
         player.resize(newWidth, newHeight);
+        let videoInfoTable = document.getElementById("height-width-info");
+        videoInfoTable.innerHTML = `<tr><td>Width:</td><td> ${player.getWidth()} px </td></tr>
+                                    <tr><td>Height:</td><td> ${player.getHeight()} px </td></tr>`
     });
-    document.getElementById("get-height").addEventListener("click", (event) => {
-        let heightOutput = document.getElementById("height-output");
-        heightOutput.innerHTML = `<td>${player.getHeight()}</td>`
-    })
-    document.getElementById("get-width").addEventListener("click", (event) => {
-        let widthOutput = document.getElementById("width-output");
-        widthOutput.innerHTML = `<td>${player.getWidth()}</td>`
-    })
-
 });
 
 
