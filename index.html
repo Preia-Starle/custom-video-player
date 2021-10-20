@@ -9,41 +9,57 @@
 </head>
 
 <body>
-    <div id="player"> 
+    <div id="player">
     </div>
-    <button type="button" id="play-button">Play</button>
-    <button type="button" id="pause-button">Pause</button>
-    <button type="button" id="autoplay-toggle">Toggle Autoplay</button>
-    <button type="button" id="mute-toggle">Toggle Mute</button>
+    <div>
+        <button type="button" id="play-button">Play</button>
+        <button type="button" id="pause-button">Pause</button>
+        <button type="button" id="autoplay-toggle">Toggle Autoplay</button>
+        <button type="button" id="mute-toggle">Toggle Mute</button>
+        <br>
+        <br>
+        <form>
+            <input type="number" id="width-input">
+            <input type="number" id="height-input">
+            <button type="button" id="resize-button">Resize</button>
+        </form>
+        <form>
+            <h4>Volume:</h4>
+            <input type="range" id="volume-slider" min="O" max="100">
+        </form>
+        <table>
+            <tr>
+                <td>Current Volume:</td>
+                <td id="current-volume"></td>
+            </tr>
+        </table>
+    </div>
     <br>
     <br>
-    <table>
-        <tr><td>Muted:</td><td id="mute-state"></td></tr>
-    </table>
+    <div>
+        <table>
+            <h4>Video Info:</h4>
+            <tr>
+                <td>Width:</td>
+                <td id="width-value"> px</td>
+            </tr>
+            <tr>
+                <td>Height:</td>
+                <td id="height-value"> px</td>
+            </tr>
+            <tr>
+                <td>Duration:</td>
+                <td id="duration"> sec</td>
+            </tr>
+            <tr>
+                <td>Muted:</td>
+                <td id="mute-state"></td>
+            </tr>
+        </table>
+    </div>
     <br>
     <br>
-    <table id="height-width-info">
-        <h4>Video Info:</h4>
-        <tr><td>Width:</td><td id="width-value"> px </td></tr>
-        <tr><td>Height:</td><td id="height-value"> px </td></tr>
-        <tr><td>Duration:</td><td id="duration"></td> sec</tr>
-    </table>
-    <br>
-    <br>
-    <form>
-        <input type="number" id="width-input">
-        <input type="number" id="height-input">
-        <button type="button" id="resize-button">Resize</button>
-    </form>
-    <br>
-    <br>
-    <form>
-        <h4>Volume:</h4>
-        <input type="range" id="volume-slider" min="O" max="100">
-    </form>
-    <table>
-        <tr><td>Current Volume:</td><td id="current-volume"></td></tr>
-    </table>
+
 </body>
 
 </html>

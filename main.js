@@ -16,7 +16,6 @@ class MyPlayer {
         else {
             return console.log("no video to play");
         }
-
     };
     pause() {
         if (this.playerElement) {
@@ -50,7 +49,7 @@ class MyPlayer {
     }
     getVolume() {
         console.log(this.playerElement.volume);
-        return this.playerElement.volume * 100;
+        return Math.round(this.playerElement.volume * 100);
     }
     toggleMute(mute) {
         mute = this.playerElement.muted ? false : true;
@@ -69,41 +68,47 @@ class MyPlayer {
 
 
 window.addEventListener('DOMContentLoaded', (event) => {
+    url = "https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4";
     const player = new MyPlayer(document.getElementById("player"), 600, 400);
-    player.load("https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4");
-    document.getElementById("width-value").innerHTML = player.getWidth();
-    document.getElementById("height-value").innerHTML = player.getHeight();
+    player.load(url);
+    loadPlayerInfo();
+    loadPlayerControls();
 
-    let duration = document.getElementById("duration");
-    document.getElementById("playerElement").onloadedmetadata = function() {
-        duration.innerHTML = player.getDuration();
+    function loadPlayerInfo() {
+        player.playerElement.onloadedmetadata = function () {
+            document.getElementById("width-value").innerHTML = player.getWidth();
+            document.getElementById("height-value").innerHTML = player.getHeight();
+            document.getElementById("duration").innerHTML = player.getDuration();
+            document.getElementById("mute-state").innerHTML = player.getMute();
+        }
     };
 
-    document.getElementById("play-button").addEventListener("click", (event) => {
-        player.play();
-    });
-    document.getElementById("pause-button").addEventListener("click", (event) => {
-        player.pause();
-    });
-    document.getElementById("resize-button").addEventListener("click", (event) => {
-        let newWidth = document.getElementById("width-input").value;
-        let newHeight = document.getElementById("height-input").value;
-        player.resize(newWidth, newHeight);
-        document.getElementById("width-value").innerHTML = player.getWidth();
-        document.getElementById("height-value").innerHTML = player.getHeight();
-    });
-    document.getElementById("autoplay-toggle").addEventListener("click", (event) => {
-        player.toggleAutoplay();
-    });
-    document.getElementById("volume-slider").addEventListener("change", (event) => {
-        player.setVolume(document.getElementById("volume-slider").value);
-        document.getElementById("current-volume").innerHTML = player.getVolume();
-    });
-    document.getElementById("mute-toggle").addEventListener("click", (event) => {
-        player.toggleMute();
-        document.getElementById("mute-state").innerHTML = player.getMute();
-    });
-   
+    function loadPlayerControls() {
+        document.getElementById("play-button").addEventListener("click", (event) => {
+            player.play();
+        });
+        document.getElementById("pause-button").addEventListener("click", (event) => {
+            player.pause();
+        });
+        document.getElementById("resize-button").addEventListener("click", (event) => {
+            let newWidth = document.getElementById("width-input").value;
+            let newHeight = document.getElementById("height-input").value;
+            player.resize(newWidth, newHeight);
+            document.getElementById("width-value").innerHTML = player.getWidth();
+            document.getElementById("height-value").innerHTML = player.getHeight();
+        });
+        document.getElementById("autoplay-toggle").addEventListener("click", (event) => {
+            player.toggleAutoplay();
+        });
+        document.getElementById("volume-slider").addEventListener("change", (event) => {
+            player.setVolume(document.getElementById("volume-slider").value);
+            document.getElementById("current-volume").innerHTML = player.getVolume();
+        });
+        document.getElementById("mute-toggle").addEventListener("click", (event) => {
+            player.toggleMute();
+            document.getElementById("mute-state").innerHTML = player.getMute();
+        });
+    }
 });
 
 
