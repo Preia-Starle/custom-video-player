@@ -64,6 +64,11 @@ class MyPlayer {
         console.log(this.playerElement.duration);
         return this.playerElement.duration;
     }
+    setFullscreen(fullscreen) {
+        fullscreen = this.playerElement.fulscreen ? false : true;
+        console.log(fullscreen);
+        return this.playerElement.requestFullscreen()
+    }
 }
 
 
@@ -107,6 +112,9 @@ window.addEventListener('DOMContentLoaded', (event) => {
         document.getElementById("mute-toggle").addEventListener("click", (event) => {
             player.toggleMute();
             document.getElementById("mute-state").innerHTML = player.getMute();
+        });
+        document.getElementById("set-fullscreen").addEventListener("click", (event) => {
+            player.setFullscreen();
         });
     }
 });
