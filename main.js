@@ -61,6 +61,10 @@ class MyPlayer {
         console.log(this.playerElement.muted);
         return this.playerElement.muted;
     }
+    getDuration() {
+        console.log(this.playerElement.duration);
+        return this.playerElement.duration;
+    }
 }
 
 
@@ -69,6 +73,12 @@ window.addEventListener('DOMContentLoaded', (event) => {
     player.load("https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4");
     document.getElementById("width-value").innerHTML = player.getWidth();
     document.getElementById("height-value").innerHTML = player.getHeight();
+
+    let duration = document.getElementById("duration");
+    document.getElementById("playerElement").onloadedmetadata = function() {
+        duration.innerHTML = player.getDuration();
+    };
+
     document.getElementById("play-button").addEventListener("click", (event) => {
         player.play();
     });
@@ -93,6 +103,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
         player.toggleMute();
         document.getElementById("mute-state").innerHTML = player.getMute();
     });
+   
 });
 
 
