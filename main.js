@@ -38,13 +38,11 @@ class MyPlayer {
         console.log(this.playerElement.width);
         return this.playerElement.width;
     };
-    setAutoplay() {
-        if(this.playerElement.autoplay) {
-            return;
-        }
-        else {
-            this.playerElement.play();
-        }
+    toggleAutoplay(autoplay) {
+        autoplay = this.playerElement.autoplay ? false : true;
+        console.log(autoplay);
+        this.playerElement.load();
+        return this.playerElement.autoplay = autoplay;
     }
 }
 
@@ -52,9 +50,8 @@ class MyPlayer {
 window.addEventListener('DOMContentLoaded', (event) => {
     const player = new MyPlayer(document.getElementById("player"), 600, 400);
     player.load("https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4");
-    let videoInfoTable = document.getElementById("height-width-info");
-    videoInfoTable.innerHTML = `<tr><td>Width:</td><td> ${player.getWidth()} px </td></tr>
-                                <tr><td>Height:</td><td> ${player.getHeight()} px </td></tr>`
+    document.getElementById("width-value").innerHTML = player.getWidth();
+    document.getElementById("height-value").innerHTML = player.getHeight();
     document.getElementById("play-button").addEventListener("click", (event) => {
         player.play();
     });
@@ -65,9 +62,11 @@ window.addEventListener('DOMContentLoaded', (event) => {
         let newWidth = document.getElementById("width-input").value;
         let newHeight = document.getElementById("height-input").value;
         player.resize(newWidth, newHeight);
-        let videoInfoTable = document.getElementById("height-width-info");
-        videoInfoTable.innerHTML = `<tr><td>Width:</td><td> ${player.getWidth()} px </td></tr>
-                                    <tr><td>Height:</td><td> ${player.getHeight()} px </td></tr>`
+        document.getElementById("width-value").innerHTML = player.getWidth();
+        document.getElementById("height-value").innerHTML = player.getHeight();
+    });
+    document.getElementById("autoplay-toggle").addEventListener("click", (event) => {
+        player.toggleAutoplay();
     });
 });
 
