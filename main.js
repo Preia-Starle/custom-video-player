@@ -48,6 +48,10 @@ class MyPlayer {
         this.playerElement.volume = volume / 100;
         console.log("after" + this.playerElement.volume);
     }
+    getVolume() {
+        console.log(this.playerElement.volume)
+        return this.playerElement.volume * 100;
+    }
 }
 
 
@@ -74,6 +78,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
     });
     document.getElementById("volume-slider").addEventListener("change", (event) => {
         player.setVolume(document.getElementById("volume-slider").value);
+        document.getElementById("current-volume").innerHTML = player.getVolume();
     });
 });
 
