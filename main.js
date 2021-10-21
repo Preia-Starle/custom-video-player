@@ -69,10 +69,16 @@ class MyPlayer {
         console.log(fullscreen);
         return this.playerElement.requestFullscreen()
     }
+    getPlaybackState() {
+        if(this.playerElement.paused) {
+            console.log("video is paused");
+            return "paused";
+        }
+    }
 }
 
 
-window.addEventListener('DOMContentLoaded', (event) => {
+window.addEventListener("DOMContentLoaded", (event) => {
     url = "https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4";
     const player = new MyPlayer(document.getElementById("player"), 600, 400);
     player.load(url);
@@ -80,11 +86,12 @@ window.addEventListener('DOMContentLoaded', (event) => {
     loadPlayerControls();
 
     function loadPlayerInfo() {
-        player.playerElement.onloadedmetadata = function () {
+        player.playerElement.onloadedmetadata = () => {
             document.getElementById("width-value").innerHTML = player.getWidth();
             document.getElementById("height-value").innerHTML = player.getHeight();
             document.getElementById("duration").innerHTML = player.getDuration();
             document.getElementById("mute-state").innerHTML = player.getMute();
+            document.getElementById("playback-state").innerHTML = player.getPlaybackState();
         }
     };
 
@@ -94,6 +101,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
         });
         document.getElementById("pause-button").addEventListener("click", (event) => {
             player.pause();
+            document.getElementById("playback-state").innerHTML = player.getPlaybackState();
         });
         document.getElementById("resize-button").addEventListener("click", (event) => {
             let newWidth = document.getElementById("width-input").value;
@@ -115,6 +123,14 @@ window.addEventListener('DOMContentLoaded', (event) => {
         });
         document.getElementById("set-fullscreen").addEventListener("click", (event) => {
             player.setFullscreen();
+        });
+        player.playerElement.addEventListener("playing", (event) => {
+            console.log("video is playing");
+            document.getElementById("playback-state").innerHTML = "playing";
+        });
+        player.playerElement.addEventListener("ended", (event) => {
+            console.log("video ended");
+            document.getElementById("playback-state").innerHTML = "ended";
         });
     }
 });
