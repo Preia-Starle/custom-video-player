@@ -6,7 +6,7 @@ class MyPlayer {
         this.height = height;
     };
     load(url) {
-        this.divId.innerHTML = `<video id="playerElement" src=${url} width=${this.width} height=${this.height} controls  />`;
+        this.divId.innerHTML = `<video id="playerElement" src=${url} width=${this.width} height=${this.height} controls="hidden"  />`;
         this.playerElement = document.getElementById("playerElement");
     };
     play() {
@@ -70,16 +70,16 @@ class MyPlayer {
         return this.playerElement.requestFullscreen()
     }
     getPlaybackState() {
-        if(this.playerElement.paused) {
+        if (this.playerElement.paused) {
             console.log("video is paused");
             return "paused";
         }
     }
     getViewability(entries) {
-            entries.forEach((entry) => {
-                let viewabilityRatio = (Math.floor(entry.intersectionRatio * 100));
-                document.getElementById("player-viewability").innerHTML = viewabilityRatio + "%";
-            })
+        entries.forEach((entry) => {
+            let viewabilityRatio = (Math.floor(entry.intersectionRatio * 100));
+            document.getElementById("player-viewability").innerHTML = viewabilityRatio + "%";
+        })
     }
 }
 
@@ -89,13 +89,13 @@ window.addEventListener("DOMContentLoaded", (event) => {
     const player = new MyPlayer(document.getElementById("player"), 600, 400);
     player.load(url);
     loadPlayerInfo();
-    loadPlayerControls(); 
+    loadPlayerControls();
 
     function loadPlayerInfo() {
         player.playerElement.onloadedmetadata = () => {
-            document.getElementById("width-value").innerHTML = player.getWidth();
-            document.getElementById("height-value").innerHTML = player.getHeight();
-            document.getElementById("duration").innerHTML = player.getDuration();
+            document.getElementById("width-value").innerHTML = player.getWidth() + " " + "px";
+            document.getElementById("height-value").innerHTML = player.getHeight() + " " + "px";
+            document.getElementById("duration").innerHTML = player.getDuration() + " " + "sec";
             document.getElementById("mute-state").innerHTML = player.getMute();
             document.getElementById("playback-state").innerHTML = player.getPlaybackState();
             let options = {
@@ -105,8 +105,8 @@ window.addEventListener("DOMContentLoaded", (event) => {
             let observer = new IntersectionObserver(player.getViewability, options);
             let target = this.playerElement;
             observer.observe(target);
+        }
     }
-}
 
     function loadPlayerControls() {
         document.getElementById("play-button").addEventListener("click", (event) => {
@@ -120,8 +120,8 @@ window.addEventListener("DOMContentLoaded", (event) => {
             let newWidth = document.getElementById("width-input").value;
             let newHeight = document.getElementById("height-input").value;
             player.resize(newWidth, newHeight);
-            document.getElementById("width-value").innerHTML = player.getWidth();
-            document.getElementById("height-value").innerHTML = player.getHeight();
+            document.getElementById("width-value").innerHTML = player.getWidth() + " " + "px";
+            document.getElementById("height-value").innerHTML = player.getHeight() + " " + "px";
         });
         document.getElementById("autoplay-toggle").addEventListener("click", (event) => {
             player.toggleAutoplay();
