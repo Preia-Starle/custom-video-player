@@ -6,7 +6,7 @@ class MyPlayer {
         this.height = height;
     };
     load(url) {
-        this.divId.innerHTML = `<video id="playerElement" src=${url} width=${this.width} height=${this.height} controls="hidden"  />`;
+        this.divId.innerHTML = `<video id="playerElement" src=${url} width=${this.width} height=${this.height}>`;
         this.playerElement = document.getElementById("playerElement");
     };
     play() {
