@@ -75,6 +75,12 @@ class MyPlayer {
             return "paused";
         }
     }
+    getViewability(entries) {
+            entries.forEach((entry) => {
+                let viewabilityRatio = (Math.floor(entry.intersectionRatio * 100));
+                document.getElementById("player-viewability").innerHTML = viewabilityRatio + "%";
+            })
+    }
 }
 
 
@@ -83,7 +89,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
     const player = new MyPlayer(document.getElementById("player"), 600, 400);
     player.load(url);
     loadPlayerInfo();
-    loadPlayerControls();
+    loadPlayerControls(); 
 
     function loadPlayerInfo() {
         player.playerElement.onloadedmetadata = () => {
@@ -92,8 +98,15 @@ window.addEventListener("DOMContentLoaded", (event) => {
             document.getElementById("duration").innerHTML = player.getDuration();
             document.getElementById("mute-state").innerHTML = player.getMute();
             document.getElementById("playback-state").innerHTML = player.getPlaybackState();
-        }
-    };
+            let options = {
+                root: null,
+                threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]
+            }
+            let observer = new IntersectionObserver(player.getViewability, options);
+            let target = this.playerElement;
+            observer.observe(target);
+    }
+}
 
     function loadPlayerControls() {
         document.getElementById("play-button").addEventListener("click", (event) => {
@@ -134,15 +147,3 @@ window.addEventListener("DOMContentLoaded", (event) => {
         });
     }
 });
-
-
-
-
-
-
-
-
-
-
-
-
