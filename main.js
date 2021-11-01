@@ -85,7 +85,7 @@ class MyPlayer {
 
 
 window.addEventListener("DOMContentLoaded", (event) => {
-    url = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4";
+    url = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
     const player = new MyPlayer(document.getElementById("player"), 600, 400);
     player.load(url);
     loadPlayerInfo();
